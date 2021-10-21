@@ -15,10 +15,12 @@ import org.jimtough.aws.lambda.apis.dto.Order;
 
 public class ReadOrdersLambda {
 
+	private final ObjectMapper objectMapper = new ObjectMapper();
+	private final AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
+
 	public APIGatewayProxyResponseEvent getOrders(
 			APIGatewayProxyRequestEvent request)
 	throws JsonProcessingException {
-		AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
 		ScanResult scanResult = dynamoDB.scan(new ScanRequest().withTableName(System.getenv("ORDERS_TABLE")));
 		List<Order> orders =
 			scanResult.getItems().stream()
@@ -27,7 +29,6 @@ public class ReadOrdersLambda {
 				    item.get("itemName").getS(),
 				    Integer.parseInt(item.get("quantity").getN())))
 				.collect(Collectors.toList());
-		ObjectMapper objectMapper = new ObjectMapper();
 		String jsonOutput = objectMapper.writeValueAsString(orders);
 		return new APIGatewayProxyResponseEvent().withStatusCode(200).withBody(jsonOutput);
 	}
