@@ -23,6 +23,16 @@
           <version>3.6.0</version>
         </dependency>
         <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-dynamodb</artifactId>
+            <!--
+            I chose the last release from the 1.11.x line.
+            The DynamoDB SDK API changed significantly in 1.12.x.
+            -->
+            <version>1.11.1034</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.13.0</version>
@@ -32,6 +42,7 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.13.0</version>
         </dependency>
+
         <dependency>
           <groupId>junit</groupId>
           <artifactId>junit</artifactId>
