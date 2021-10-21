@@ -70,3 +70,11 @@ Outputs:
     # example: https://kckjt232d1.execute-api.us-east-1.amazonaws.com/Prod/orders"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/orders"
     
+  CreateOrderFunction:
+    Description: "Create Order lambda function ARN"
+    Value: !GetAtt CreateOrderFunction.Arn
+
+  CreateOrderFunctionIamRole:
+    Description: "Create Order lambda function IAM role ARN"
+    # TIP: Any SAM-created lambda function resource will have an implicit role created with this naming convention
+    Value: !GetAtt CreateOrderFunctionRole.Arn
